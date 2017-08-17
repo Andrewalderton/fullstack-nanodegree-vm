@@ -14,7 +14,9 @@ cursor.execute(
     DESC LIMIT 3;"""
 )
 results = cursor.fetchall()
-print (results)
+print("\nMost popular 3 articles of all time:\n")
+for i in range(0, len(results), 1):
+    print("\'" + results[i][0] + "\' - " + str(results[i][1]) + " views")
 
 cursor.execute(
     """SELECT name, count(*) FROM authors
@@ -25,7 +27,9 @@ cursor.execute(
     ORDER BY count(*) DESC;"""
 )
 results = cursor.fetchall()
-print (results)
+print("\n\nMost popular article authors of all time:\n")
+for i in range(0, len(results), 1):
+    print(results[i][0] + " - " + str(results[i][1]) + " views")
 
 cursor.execute(
     """SELECT DATE(time) as date, sum(case when status = '404 NOT FOUND' then 1
@@ -36,6 +40,9 @@ cursor.execute(
     ORDER BY error DESC;"""
 )
 results = cursor.fetchall()
-print (results)
+print("\n\nDays where more than 1% of requests led to errors:\n")
+for i in range(0, len(results), 1):
+    print(str(results[i][0]) + " - " + str(round(results[i][1], 2)) +
+          "% errors\n")
 
 conn.close()
